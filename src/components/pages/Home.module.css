@@ -1,0 +1,41 @@
+.top_container {
+    padding: 2em;
+    align-items: top;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button_container {
+    margin-top: 1em;
+    align-items: center;
+}
+
+/* .home_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    padding: 4em;
+}
+
+.home_container h1 {
+    font-size: 1.5em;
+    margin-bottom: .5em;
+    font-weight: 600;
+}
+
+.home_container h1 span {
+    color: #ffc643;
+    padding: 0 .2em;
+    background-color: #5e35b1;
+}
+
+.bottom_section {
+    margin-top: 2em;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+
+} */

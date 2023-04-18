@@ -7,7 +7,7 @@ function Footer() {
     return (
         <footer className={styles.footer}>
             <ul className={styles.social_list}>
-                <li><FaGithub /></li>
+                <a href="https://github.com/pedrosaieg?tab=repositories"><li><FaGithub /></li></a>
             </ul>
             <p className={styles.copyright}><span>Vagas</span> &copy; Pedro Saieg</p>
         </footer >

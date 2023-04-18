@@ -27,6 +27,10 @@
     transition: 0.2s;
 }
 
+.social_list a {
+    color: white;
+}
+
 .social_list li:hover {
     margin: 0 1em;
     color: #ffc643;
