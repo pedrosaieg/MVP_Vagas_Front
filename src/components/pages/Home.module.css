@@ -11,31 +11,22 @@
     align-items: center;
 }
 
-/* .home_container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: flex-start;
-    padding: 4em;
-}
 
-.home_container h1 {
-    font-size: 1.5em;
+.top_container h1 {
+    font-size: 2em;
     margin-bottom: .5em;
-    font-weight: 600;
+    font-weight: 500;
+
 }
 
-.home_container h1 span {
+.top_container h3 {
+    font-size: 1.5em;
+    font-weight: 500;
+
+}
+
+.top_container h1 span {
     color: #ffc643;
     padding: 0 .2em;
     background-color: #5e35b1;
 }
-
-.bottom_section {
-    margin-top: 2em;
-    justify-content: flex-end;
-    display: flex;
-    align-items: center;
-
-} */

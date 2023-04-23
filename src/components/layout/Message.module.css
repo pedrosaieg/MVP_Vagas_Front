@@ -1,11 +1,13 @@
 .message {
-    width: 100%;
-    padding: 1.3em;
+    width: 80%;
+    max-height: 80px;
+    padding: 30px;
     /* border: 1px solid #111; */
     margin: 0 auto;
+    align-items: center;
     text-align: center;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border-radius: 15px;
     transition: 2s;
 }

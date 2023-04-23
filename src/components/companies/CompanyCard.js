@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom'
 import { BsPencilSquare, BsTrash3, BsEye } from 'react-icons/bs'
 
 function CompanyCard({ id, nome, ramo_atuacao, link, tamanho, vagas, handleRemove }) {
+
+    const remove = (e) => {
+        e.preventDefault()
+        handleRemove(id)
+    }
+
     return (
         <div className={styles.company_card}>
             <h4>{nome}</h4>
@@ -14,12 +20,12 @@ function CompanyCard({ id, nome, ramo_atuacao, link, tamanho, vagas, handleRemov
             <p><a href={link}>Website</a></p>
             <div className={styles.project_card_actions}>
                 <Link to=" /">
-                    <BsEye id="abc" />
+                    <BsEye />
                 </Link>
-                <Link to="/">
-                    <BsPencilSquare id="abcd" />
+                <Link to={`/company/${id}`}>
+                    <BsPencilSquare />
                 </Link>
-                <button to="/">
+                <button onClick={remove} to="/">
                     <BsTrash3 />
                 </button>
             </div>

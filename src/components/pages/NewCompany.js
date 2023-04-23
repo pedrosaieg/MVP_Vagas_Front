@@ -26,7 +26,6 @@ function NewCompany() {
             })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log(data)
                 navigate('/', { state: { message: 'Empresa cadastrada com sucesso!' } })
             })
             .catch(err => console.log(err))
