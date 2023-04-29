@@ -1,5 +1,8 @@
+import { toast } from 'react-toastify';
 import CompanyForm from '../companies/CompanyForm'
 import styles from './NewCompany.module.css'
+
+import { motion } from 'framer-motion'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -26,17 +29,22 @@ function NewCompany() {
             })
             .then((resp) => resp.json())
             .then((data) => {
-                navigate('/', { state: { message: 'Empresa cadastrada com sucesso!' } })
+                toast.success('Empresa cadastrada com sucesso.')
+                navigate('/')
             })
             .catch(err => console.log(err))
     }
 
     return (
-        <div className={styles.newcompany_container}>
+        <motion.div className={styles.newcompany_container}
+            inition={{ width: 0 }}
+            animate={{ width: "800px" }}
+            exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+        >
             <h1>Cadastre empresa</h1>
             <p>Cadastre uma empresa para adicionar vagas</p>
             <CompanyForm handleSubmit={createPost} btnText="Salvar" />
-        </div>
+        </motion.div>
     )
 }
 

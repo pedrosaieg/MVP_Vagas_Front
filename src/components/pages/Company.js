@@ -1,14 +1,19 @@
 import styles from './Company.module.css'
 
+import { toast } from 'react-toastify';
+
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-import Loading from '../layout/Loading'
+import { motion } from 'framer-motion'
+
+import SkeletonVagaCard from '../vagas/SkeletonVagaCard'
+
 import CompanyForm from '../companies/CompanyForm'
-import Message from '../layout/Message'
 import Container from '../layout/Container'
 import VagaForm from '../vagas/VagaForm'
 import VagaCard from '../vagas/VagaCard'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 function Company() {
 
@@ -18,8 +23,6 @@ function Company() {
     const [allVagas, setAllVagas] = useState([])
     const [showCompanyForm, setShowCompanyForm] = useState(false)
     const [showVagaForm, setShowVagaForm] = useState(false)
-    const [message, setMessage] = useState()
-    const [type, setType] = useState()
 
     useEffect(() => {
         setTimeout(() => {
@@ -55,8 +58,23 @@ function Company() {
 
     }
 
-    function removeVaga() {
+    function removeVaga(id) {
+        const formData = new FormData();
+        formData.append('id', id);
 
+        fetch(`http://localhost:5000/vaga?id=${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'applicatin/json'
+            },
+        })
+            .then(resp => resp.json())
+            .then(() => {
+                setAllVagas(allVagas.filter((vaga) => vaga.id !== id))
+                toast.success('Empresa removida com sucesso.')
+                updatePageData()
+            })
+            .catch(err => console.log(err))
     }
 
     function toggleCompanyForm() {
@@ -68,7 +86,6 @@ function Company() {
     }
 
     function editPost(company) {
-        setMessage('')
 
         const formData = new FormData();
         formData.append('id', company.id);
@@ -90,8 +107,7 @@ function Company() {
             .then((resp) => resp.json())
             .then((data) => {
                 setCompany(data)
-                setMessage('Empresa alterada com sucesso.')
-                setType('success')
+                toast.success('Empresa alterada com sucesso.')
                 setShowCompanyForm(false)
             })
             .catch(err => console.log(err))
@@ -100,7 +116,6 @@ function Company() {
     }
 
     function createVaga(vaga) {
-        setMessage('')
 
         const formData = new FormData();
         formData.append('empresa_id', company.id)
@@ -110,7 +125,6 @@ function Company() {
         formData.append('modalidade_contrato', vaga.modalidade_contrato);
         formData.append('modalidade_trabalho', vaga.modalidade_trabalho);
         formData.append('responsabilidades', vaga.responsabilidades);
-        console.log(...formData)
 
         fetch("http://localhost:5000/vaga",
             {
@@ -122,26 +136,37 @@ function Company() {
             })
             .then((resp) => resp.json())
             .then((data) => {
-                setMessage('Vaga cadastrada com sucesso.')
-                setType('success')
+                toast.success('Vaga cadastrada com sucesso.')
                 setShowVagaForm(false)
                 updatePageData()
+                console.log(...formData)
             })
             .catch(err => console.log(err))
     }
 
     return (
-        <>
-            {message && <Message type={type} msg={message} />}
-            {company.nome ?
-                (
-                    <div className={styles.company_details}>
-                        <div className={styles.details_container}>
-                            <h1>{company.nome}</h1>
-                            <button className={styles.btn} onClick={toggleCompanyForm}>
-                                {!showCompanyForm ? "Editar empresa" : 'Cancelar'}
-                            </button>
-                            {!showCompanyForm ?
+        <motion.div
+            inition={{ width: 0 }}
+            animate={{ width: "100%" }}
+            exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+        >
+            <div className={styles.company_details}>
+                <div className={styles.details_container}>
+                    <div className={styles.company_name}>
+                        <h1>
+                            {company.nome ? company.nome :
+                                (<SkeletonTheme baseColor='#5e35b1' highlightColor='#7a5a8f'>
+                                    <h4><Skeleton /></h4>
+                                </SkeletonTheme>)
+                            }
+                        </h1>
+                        <button className={styles.btn} onClick={toggleCompanyForm}>
+                            {!showCompanyForm ? "Editar empresa" : 'Cancelar'}
+                        </button>
+                    </div>
+                    {!showCompanyForm ?
+                        (
+                            company.nome ?
                                 (
                                     <div className={styles.company_info}>
                                         <p><span>Área de atuação: </span>{company.ramo_atuacao}</p>
@@ -150,26 +175,39 @@ function Company() {
                                         <p><span>Funcionários: </span>{company.tamanho}</p>
                                         <p><span>Vagas: </span>{(company.vagas).length}</p>
                                     </div>
-                                ) : (
+                                )
+                                :
+                                (
                                     <div className={styles.company_info}>
-                                        <CompanyForm handleSubmit={editPost} btnText='Salvar' companyData={company} />
+                                        <p><Skeleton /></p>
+                                        <p><Skeleton /></p>
+                                        <p><Skeleton /></p>
+                                        <p><Skeleton /></p>
+                                        <p><Skeleton /></p>
                                     </div>
                                 )
-                            }
-                        </div>
-                        <div className={styles.vaga_form_container}>
-                            <h2>Vagas da empresa</h2>
-                            <button className={styles.btn} onClick={toggleVagaForm}>
-                                {!showVagaForm ? "Adicionar vaga" : 'Cancelar'}
-                            </button>
+                        ) : (
                             <div className={styles.company_info}>
-                                {showVagaForm && (
-                                    <VagaForm handleSubmit={createVaga}
-                                        textBtn={"Salvar"} />
-                                )}
+                                <CompanyForm handleSubmit={editPost} btnText='Salvar' companyData={company} />
                             </div>
-                            <Container customClass="start">
-                                {company.vagas.length > 0 &&
+                        )
+                    }
+                </div>
+                <div className={styles.vaga_form_container}>
+                    <h2>Vagas da empresa</h2>
+                    <button className={styles.btn} onClick={toggleVagaForm}>
+                        {!showVagaForm ? "Adicionar vaga" : 'Cancelar'}
+                    </button>
+                    <div className={styles.company_info}>
+                        {showVagaForm && (
+                            <VagaForm handleSubmit={createVaga}
+                                textBtn={"Salvar"} />
+                        )}
+                    </div>
+                    <Container customClass="start">
+                        {company.nome ?
+                            (
+                                company.vagas.length > 0 ?
                                     allVagas.map((vaga) => (
                                         <VagaCard
                                             id={vaga.id}
@@ -181,15 +219,19 @@ function Company() {
                                             handleRemove={removeVaga}
                                         />
                                     ))
-                                }
-                                {company.vagas.length === 0 && <p>Não há vagas cadastradas para a empresa.</p>}
-                            </Container>
-                        </div>
-                    </div >
-                ) :
-                (<Loading />)
-            }
-        </>
+                                    : (<p>Não há vagas cadastradas.</p>)
+                            ) : (
+                                <SkeletonVagaCard cards={10} />
+                            )}
+
+
+
+                    </Container>
+                </div>
+            </div >
+
+
+        </motion.div>
     )
 }
 

@@ -2,7 +2,7 @@ import styles from './CompanyCard.module.css'
 
 import { Link } from 'react-router-dom'
 
-import { BsPencilSquare, BsTrash3, BsEye } from 'react-icons/bs'
+import { BsTrash3, BsEye } from 'react-icons/bs'
 
 function CompanyCard({ id, nome, ramo_atuacao, link, tamanho, vagas, handleRemove }) {
 
@@ -19,11 +19,8 @@ function CompanyCard({ id, nome, ramo_atuacao, link, tamanho, vagas, handleRemov
             <p><span>Vagas: </span>{vagas}</p>
             <p><a href={link}>Website</a></p>
             <div className={styles.project_card_actions}>
-                <Link to=" /">
-                    <BsEye />
-                </Link>
                 <Link to={`/company/${id}`}>
-                    <BsPencilSquare />
+                    <BsEye />
                 </Link>
                 <button onClick={remove} to="/">
                     <BsTrash3 />

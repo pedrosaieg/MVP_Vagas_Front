@@ -13,9 +13,7 @@ function Navbar() {
                     {<img src={logo} alt="Vagas" />}
                 </Link>
                 <ul className={styles.list}>
-                    <li className={styles.item}><Link to="/">Home</Link></li>
-                    {/* <li><Link to="/newcompany">Nova empresa</Link></li> */}
-                    <li className={styles.item}><Link to="/company">Empresa</Link></li>
+                    <li className={styles.item}><Link to="/">Início</Link></li>
                 </ul>
             </Container>
         </nav>

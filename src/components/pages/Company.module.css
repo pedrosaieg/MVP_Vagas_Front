@@ -5,6 +5,23 @@
     /* display: contents; */
 }
 
+.company_details a {
+    text-decoration: none;
+}
+
+.company_name {
+    margin-bottom: 10px;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.company_name h1 {
+    min-width: 200px;
+}
+
+
+
 .company_details h1,
 .company_details h2,
 .company_details p {

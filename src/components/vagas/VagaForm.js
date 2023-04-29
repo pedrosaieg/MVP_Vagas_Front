@@ -34,13 +34,13 @@ function VagaForm({ handleSubmit, textBtn }) {
             />
             <Input type="text"
                 text="Modalidade de contratação"
-                name="contrato"
+                name="modalidade_contrato"
                 placeholder="PJ/CLT"
                 handleOnChange={handleChange}
             />
             <Input type="text"
                 text="Modalidade de trabalho"
-                name="trabalho"
+                name="modalidade_trabalho"
                 placeholder="Presencial/Híbrido/Remoto"
                 handleOnChange={handleChange}
             />
