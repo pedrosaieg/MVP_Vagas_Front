@@ -5,6 +5,10 @@ Este pequeno projeto faz parte da entrega do MVP da disciplina **Desenvolvimento
 ---
 ## Como executar 
 
+Para executar esta aplicação será necessário ter instalado o Noje.js (https://nodejs.org/en)
+
+
+
 
 Será necessário ter todas as libs python listadas no `requirements.txt` instaladas.
 Após clonar o repositório, é necessário ir ao diretório raiz, pelo terminal, para poder executar os comandos descritos abaixo.
